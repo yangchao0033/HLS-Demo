@@ -49,6 +49,8 @@ HLS只请求基本的HTTP报文，与实时传输协议（RTP)不同，HLS可以
 
 [苹果官方文档](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/HTTPStreamingArchitecture/HTTPStreamingArchitecture.html#//apple_ref/doc/uid/TP40008332-CH101-SW4)
 
+[维基百科](https://zh.wikipedia.org/wiki/HTTP_Live_Streaming#.E5.AE.A2.E6.88.B7.E7.AB.AF.E6.94.AF.E6.8C.81)
+
 [http://my.oschina.net/CgShare/blog/302303](http://my.oschina.net/CgShare/blog/302303)
 
-[维基百科](https://zh.wikipedia.org/wiki/HTTP_Live_Streaming#.E5.AE.A2.E6.88.B7.E7.AB.AF.E6.94.AF.E6.8C.81)
+[http://blog.csdn.net/woaifen3344/article/details/40837803](http://blog.csdn.net/woaifen3344/article/details/40837803)
