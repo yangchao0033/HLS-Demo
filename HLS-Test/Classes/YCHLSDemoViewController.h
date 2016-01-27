@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  YCHLSDemoViewController.h
 //  HLS-Test
 //
 //  Created by 超杨 on 16/1/27.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UITableViewController
-
+@interface YCHLSDemoViewController : UIViewController
 
 @end
-

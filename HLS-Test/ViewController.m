@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "YCHLSDemoViewController.h"
 
 @interface ViewController ()
 
@@ -24,4 +25,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        YCHLSDemoViewController *vc = [[YCHLSDemoViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 @end
