@@ -44,3 +44,11 @@ HLS只请求基本的HTTP报文，与实时传输协议（RTP)不同，HLS可以
 * VODOBOX HLS Player (Android,iOS, Adobe Flash Player)
 * JW Player (Adobe Flash player)
 * Windows 10 的 EDGE 浏览器开始支持HLS。
+
+参考文献：
+
+[苹果官方文档](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/HTTPStreamingArchitecture/HTTPStreamingArchitecture.html#//apple_ref/doc/uid/TP40008332-CH101-SW4)
+
+[http://my.oschina.net/CgShare/blog/302303](http://my.oschina.net/CgShare/blog/302303)
+
+[维基百科](https://zh.wikipedia.org/wiki/HTTP_Live_Streaming#.E5.AE.A2.E6.88.B7.E7.AB.AF.E6.94.AF.E6.8C.81)
