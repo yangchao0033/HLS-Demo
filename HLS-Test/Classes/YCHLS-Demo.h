@@ -15,4 +15,5 @@
 
 #import "HTTPServer.h"
 
+#define kLibraryCache [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] 
 #endif /* YCHLS_Demo_h */

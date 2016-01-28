@@ -25,14 +25,9 @@
                                 <state key="normal" title="播放本地视频">
                                     <color key="titleColor" red="0.086274509799999996" green="0.074509803920000006" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nE5-dB-6Mq">
-                                <rect key="frame" x="300" y="420" width="300" height="90"/>
-                                <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="下载">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <connections>
+                                    <action selector="playVideoFromLocal:" destination="YPw-ss-E1s" eventType="touchUpInside" id="YNY-AQ-y2Z"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVg-hb-KF5">
                                 <rect key="frame" x="0.0" y="420" width="300" height="90"/>
@@ -49,6 +44,9 @@
                                         <exclude reference="YkI-R4-Iix"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="playLiveStreaming" destination="YPw-ss-E1s" eventType="touchUpInside" id="Xow-N9-Kd5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW5-Cq-rRl">
                                 <rect key="frame" x="0.0" y="510" width="600" height="90"/>
@@ -57,20 +55,34 @@
                                 <state key="normal" title="清除缓存">
                                     <color key="titleColor" red="1" green="0.36078431370000003" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="clearCaches:" destination="YPw-ss-E1s" eventType="touchUpInside" id="w1J-2B-mgE"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-b2-In5">
-                                <rect key="frame" x="8" y="214" width="28" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="av2-BX-WA8">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="av2-BX-WA8">
                                 <rect key="frame" x="0.0" y="240" width="600" height="90"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="progressTintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-b2-In5">
+                                <rect key="frame" x="8" y="214" width="28" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nE5-dB-6Mq">
+                                <rect key="frame" x="300" y="420" width="300" height="90"/>
+                                <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="下载">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="downloadStreamingMedia:" destination="YPw-ss-E1s" eventType="touchUpInside" id="EFr-TT-hHb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -98,6 +110,12 @@
                             <constraint firstItem="791-2c-pIr" firstAttribute="height" secondItem="ZVg-hb-KF5" secondAttribute="height" id="wq5-bg-VMg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="clearButton" destination="OW5-Cq-rRl" id="bGu-ex-WyJ"/>
+                        <outlet property="downloadButton" destination="nE5-dB-6Mq" id="lXN-Ax-yvQ"/>
+                        <outlet property="progressLabel" destination="gpG-b2-In5" id="Pkr-dc-92n"/>
+                        <outlet property="progressView" destination="av2-BX-WA8" id="acs-Dm-B8a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B3E-Sd-5Ps" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -36,6 +36,7 @@
     NSURL *url = [[NSURL alloc] initWithString:urlstr];
     NSError *error = nil;
     NSStringEncoding encoding;
+    /** 获取到返回的响应字符串，其中包含该视频流的信息 */
     NSString *data = [[NSString alloc] initWithContentsOfURL:url
                                                      usedEncoding:&encoding 
                                                             error:&error];

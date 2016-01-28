@@ -21,4 +21,5 @@
 @optional
 -(void)videoDownloaderFinished:(VideoDownloader*)request;
 -(void)videoDownloaderFailed:(VideoDownloader*)request;
+- (void)instanceDelloc;
 @end
