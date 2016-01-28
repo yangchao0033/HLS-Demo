@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--Demo View Controller-->
+        <scene sceneID="aEk-26-dVp">
+            <objects>
+                <viewController storyboardIdentifier="HLSPlay" id="YPw-ss-E1s" customClass="YCHLSDemoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sCz-gG-Swa"/>
+                        <viewControllerLayoutGuide type="bottom" id="hus-EO-k9u"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ccW-pZ-Lbu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="791-2c-pIr">
+                                <rect key="frame" x="0.0" y="330" width="600" height="90"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="播放本地视频">
+                                    <color key="titleColor" red="0.086274509799999996" green="0.074509803920000006" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nE5-dB-6Mq">
+                                <rect key="frame" x="300" y="420" width="300" height="90"/>
+                                <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="下载">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVg-hb-KF5">
+                                <rect key="frame" x="0.0" y="420" width="300" height="90"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="YkI-R4-Iix"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="播放">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="YkI-R4-Iix"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW5-Cq-rRl">
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="0.92941176469999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="清除缓存">
+                                    <color key="titleColor" red="1" green="0.36078431370000003" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-b2-In5">
+                                <rect key="frame" x="8" y="214" width="28" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="av2-BX-WA8">
+                                <rect key="frame" x="0.0" y="240" width="600" height="90"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="progressTintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OW5-Cq-rRl" firstAttribute="leading" secondItem="ccW-pZ-Lbu" secondAttribute="leading" id="0EN-yY-r02"/>
+                            <constraint firstAttribute="trailing" secondItem="av2-BX-WA8" secondAttribute="trailing" id="0UY-mE-zs9"/>
+                            <constraint firstItem="av2-BX-WA8" firstAttribute="height" secondItem="ZVg-hb-KF5" secondAttribute="height" id="61t-zf-VHK"/>
+                            <constraint firstItem="OW5-Cq-rRl" firstAttribute="top" secondItem="ZVg-hb-KF5" secondAttribute="bottom" id="7Le-ch-ot5"/>
+                            <constraint firstItem="791-2c-pIr" firstAttribute="top" secondItem="av2-BX-WA8" secondAttribute="bottom" id="7ah-Fw-XZD"/>
+                            <constraint firstItem="ZVg-hb-KF5" firstAttribute="height" secondItem="ccW-pZ-Lbu" secondAttribute="height" multiplier="0.15" id="7zg-BI-P6d"/>
+                            <constraint firstItem="hus-EO-k9u" firstAttribute="top" secondItem="OW5-Cq-rRl" secondAttribute="bottom" id="9zs-is-cNm"/>
+                            <constraint firstItem="gpG-b2-In5" firstAttribute="leading" secondItem="av2-BX-WA8" secondAttribute="leading" constant="8" id="E0O-AL-AVA"/>
+                            <constraint firstItem="791-2c-pIr" firstAttribute="leading" secondItem="ccW-pZ-Lbu" secondAttribute="leading" id="JQQ-Jj-iyV"/>
+                            <constraint firstAttribute="trailing" secondItem="OW5-Cq-rRl" secondAttribute="trailing" id="LSo-Jt-nBb"/>
+                            <constraint firstItem="nE5-dB-6Mq" firstAttribute="leading" secondItem="ZVg-hb-KF5" secondAttribute="trailing" id="Ldv-yo-PnI"/>
+                            <constraint firstItem="ZVg-hb-KF5" firstAttribute="width" secondItem="nE5-dB-6Mq" secondAttribute="width" id="Lva-1C-t08"/>
+                            <constraint firstItem="OW5-Cq-rRl" firstAttribute="height" secondItem="ZVg-hb-KF5" secondAttribute="height" id="T9p-VU-jWw"/>
+                            <constraint firstItem="av2-BX-WA8" firstAttribute="leading" secondItem="ccW-pZ-Lbu" secondAttribute="leading" id="V7b-kT-U9w"/>
+                            <constraint firstItem="ZVg-hb-KF5" firstAttribute="leading" secondItem="ccW-pZ-Lbu" secondAttribute="leading" id="WB8-yo-YXG"/>
+                            <constraint firstAttribute="trailing" secondItem="791-2c-pIr" secondAttribute="trailing" id="ffB-RH-lqT"/>
+                            <constraint firstItem="nE5-dB-6Mq" firstAttribute="bottom" secondItem="ZVg-hb-KF5" secondAttribute="bottom" id="gq1-bI-kpd"/>
+                            <constraint firstItem="ZVg-hb-KF5" firstAttribute="top" secondItem="791-2c-pIr" secondAttribute="bottom" id="klw-eb-mwg"/>
+                            <constraint firstAttribute="trailing" secondItem="nE5-dB-6Mq" secondAttribute="trailing" id="lDc-yd-jWy"/>
+                            <constraint firstItem="nE5-dB-6Mq" firstAttribute="height" secondItem="ZVg-hb-KF5" secondAttribute="height" id="maL-58-UkV"/>
+                            <constraint firstItem="av2-BX-WA8" firstAttribute="top" secondItem="gpG-b2-In5" secondAttribute="bottom" constant="2" id="o7q-fE-3TJ"/>
+                            <constraint firstItem="791-2c-pIr" firstAttribute="height" secondItem="ZVg-hb-KF5" secondAttribute="height" id="wq5-bg-VMg"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B3E-Sd-5Ps" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="432" y="448"/>
+        </scene>
+    </scenes>
+</document>

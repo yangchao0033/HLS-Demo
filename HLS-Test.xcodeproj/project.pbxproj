@@ -95,6 +95,7 @@
 		1735ABBA1C58BC82005AE509 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1735ABB91C58BC82005AE509 /* CFNetwork.framework */; };
 		1735ABBC1C58BC8C005AE509 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1735ABBB1C58BC8C005AE509 /* MediaPlayer.framework */; };
 		1735ABC11C58C318005AE509 /* YCHLSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1735ABC01C58C318005AE509 /* YCHLSDemoViewController.m */; };
+		1735ABC41C59B006005AE509 /* YCHLSDemoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1735ABC31C59B006005AE509 /* YCHLSDemoViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,6 +279,7 @@
 		1735ABBF1C58C318005AE509 /* YCHLSDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCHLSDemoViewController.h; sourceTree = "<group>"; };
 		1735ABC01C58C318005AE509 /* YCHLSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCHLSDemoViewController.m; sourceTree = "<group>"; };
 		1735ABC21C58C3EC005AE509 /* YCHLS-Demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YCHLS-Demo.h"; sourceTree = "<group>"; };
+		1735ABC31C59B006005AE509 /* YCHLSDemoViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YCHLSDemoViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -703,6 +705,7 @@
 				1735ABBF1C58C318005AE509 /* YCHLSDemoViewController.h */,
 				1735ABC01C58C318005AE509 /* YCHLSDemoViewController.m */,
 				1735ABC21C58C3EC005AE509 /* YCHLS-Demo.h */,
+				1735ABC31C59B006005AE509 /* YCHLSDemoViewController.storyboard */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -818,6 +821,7 @@
 				1735AAA51C58B7FE005AE509 /* LaunchScreen.storyboard in Resources */,
 				1735AB7E1C58BA5D005AE509 /* README-GHUnit in Resources */,
 				1735AAA21C58B7FE005AE509 /* Assets.xcassets in Resources */,
+				1735ABC41C59B006005AE509 /* YCHLSDemoViewController.storyboard in Resources */,
 				1735AAA01C58B7FE005AE509 /* Main.storyboard in Resources */,
 				1735AB7F1C58BA5D005AE509 /* LICENCE.txt in Resources */,
 				1735AB9B1C58BA5D005AE509 /* About.txt in Resources */,

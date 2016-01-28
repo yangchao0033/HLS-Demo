@@ -9,7 +9,7 @@
 #import "YCHLSDemoViewController.h"
 #import "YCHLS-Demo.h"
 #import <MediaPlayer/MediaPlayer.h>
-@interface YCHLSDemoViewController ()
+@interface YCHLSDemoViewController () <M3U8HandlerDelegate, VideoDownloadDelegate>
 
 /** 本地服务器对象 */
 @property (nonatomic, strong)HTTPServer * httpServer;
@@ -22,7 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self playLiveStreaming];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self openHttpServer];
 }
 
 - (void)openHttpServer
@@ -74,13 +75,17 @@
     
     // 如果上面的链接不可用，那么使用这个链接http://v.youku.com/player/getM3U8/vid/XNzIwMDE5NzI4/type/flv
     
-    NSURL *url = [[NSURL alloc] initWithString:@"http://v.youku.com/player/getM3U8/vid/XNzIwMDE5NzI4/type/mp4"];
+    NSURL *url = [[NSURL alloc] initWithString:@"http://pl.youku.com/playlist/m3u8?vid=XNzIwMDE5NzI4&type=mp4"];
     
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     
     
     [self presentMoviePlayerViewControllerAnimated:player];
 
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self playLiveStreaming];
 }
 
 @end
