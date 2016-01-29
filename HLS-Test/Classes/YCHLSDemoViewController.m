@@ -10,10 +10,19 @@
 #import "YCHLS-Demo.h"
 #import <MediaPlayer/MediaPlayer.h>
 
+
+#warning 注意，不要直接使用切换流的主索引，当前代码的协议只提供对.ts定位的子索引的下载和播放，而且其中只有点播协议那一小段是可以下载的，直播协议只能播放，无法下载。崩溃bug正在找，会及时在博客中进行更新。博客地址：superyang.gitcafe.io或yangchao0033.github.io
 /** 点播协议 */
-#define TEST_HLS_URL @"http://m3u8.tdimg.com/147/806/921/3.m3u8"
+//#define TEST_HLS_URL @"http://m3u8.tdimg.com/147/806/921/3.m3u8"
 /** 视频直播协议 */
+/** 父索引 */
 //#define TEST_HLS_URL @"http://dlhls.cdn.zhanqi.tv/zqlive/34338_PVMT5.m3u8"
+/** 子索引 */
+//#define TEST_HLS_URL @"http://dlhls.cdn.zhanqi.tv/zqlive/34338_PVMT5_1024/index.m3u8?Dnion_vsnae=34338_PVMT5"
+/** wwcd视频，果然苹果自己就用这个协议 */
+#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/hls_vod_mvp.m3u8"
+
+
 @interface YCHLSDemoViewController () <M3U8HandlerDelegate, VideoDownloadDelegate>
 
 /** 本地服务器对象 */
@@ -34,7 +43,6 @@
 
 - (void)dealloc {
     [self.downloader removeObserver:self forKeyPath:@"clearCaches" context:nil];
-//    [self.downloader removeObserver:self forKeyPath:@"currentProgress" context:nil];
 }
 
 #pragma mark - 打开本地服务器
@@ -52,8 +60,8 @@
         self.progressView.progress = 1;
         /** 配置MSU8解析器 */
         M3U8Handler *handler = [[M3U8Handler alloc] init];
-//        [handler praseUrl:[NSString stringWithFormat:@"http://v.youku.com/player/getM3U8/vid/XNjUxMTE4NDAw/type/mp4"]];
         [handler praseUrl:[NSString stringWithFormat:TEST_HLS_URL]];
+        /** @"XNjUxMTE4NDAw"就是一个唯一标示符，没有其他含义，下面遇到同理 */
         handler.playlist.uuid = @"XNjUxMTE4NDAw";
         if (self.downloader != nil) {
             [self.downloader removeObserver:self forKeyPath:@"clearCaches" context:nil];
@@ -77,11 +85,6 @@
     // 获取本地Library/Cache路径下downloads路径
     NSString *webPath = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
     
-//    if ([self needCreateWithPath:webPath]) {
-//        // 创建文件夹
-//        NSLog(@"创建新文件夹：%@", webPath);
-//    }
-    
     NSLog(@"-------------\nSetting document root: %@\n", webPath);
     
     // 设置服务器路径
@@ -95,43 +98,19 @@
     
 }
 
-//- (BOOL)needCreateWithPath:(NSString *)createPath
-//{
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:createPath])//判断createPath路径文件夹是否已存在，此处createPath为需要新建的文件夹的绝对路径
-//    {
-//        return NO;
-//    }
-//    else
-//    {
-//        
-//        [[NSFileManager defaultManager] createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];//创建文件夹
-//        return YES;
-//    }
-//}
 
 #pragma mark - 清理缓存
 - (IBAction)clearCaches:(id)sender {
     [self.downloader cleanDownloadFiles];
-//    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"isDownload"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
 #pragma mark - 在线流媒体播放
 - (IBAction)playLiveStreaming {
-    // 优酷视频m3u8新地址格式如下:http://pl.youku.com/playlist/m3u8?vid=XNzIwMDE5NzI4&type=mp4
     
-    // 如果上面的链接不可用，那么使用这个链接http://v.youku.com/player/getM3U8/vid/XNzIwMDE5NzI4/type/flv
-    
-    // 如果上面的两种格式都不行的话，考虑用这个格式，当然如果这个格式不行的话，是上面的，或者直接换个对应的m3u8的地址 http://pl.youku.com/playlist/m3u8?vid=162779600&ts=1407469897&ctype=12&token=3357&keyframe=1&sid=640746989782612d6cc70&ev=1&type=mp4&ep=dCaUHU2LX8YJ4ivdjj8bMyqxJ3APXP8M9BiCiNRiANQnS%2B24&oip=2043219268
-//    NSURL *url = [[NSURL alloc] initWithString:@"http://pl.youku.com/playlist/m3u8?vid=162779600&ts=1407469897&ctype=12&token=3357&keyframe=1&sid=640746989782612d6cc70&ev=1&type=flv&ep=dCaUHU2LX8YJ4ivdjj8bMyqxJ3APXP8M9BiCiNRiANQnS%2B24&oip=2043219268"];
     NSURL *url = [[NSURL alloc] initWithString:TEST_HLS_URL];
-    
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    
-    
     [self presentMoviePlayerViewControllerAnimated:player];
-
 }
 
 #pragma mark - 视频下载
