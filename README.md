@@ -3,7 +3,7 @@ IOS 视屏直播样例
 
 主要展示 HLS 详细流程，用于iOS视屏直播。
 
-使用demo前请注意下面的问题。
+**使用demo前请注意下面的问题。**
 
 ```objc
 //#warning 注意，不要直接使用切换流的主索引，当前代码的协议只提供对.ts定位的子索引的下载和播放，而且其中只有点播协议那一小段是可以下载的，直播协议只能播放，无法下载，无法下载的原因是因为m3u8的那个库中只对特定的一种m3u8的格式做了解析，而m3u8的格式有很多种，所以无法加息出来，该demo只做演示，不会对所有格式进行全解析，如果大家感兴趣的话可以对m3u8的库进行扩展，在github 上 pull request 我做一个补充扩展😁，我会及时在博客中进行更新。博客地址：superyang.gitcafe.io或yangchao0033.github.io 同简书：http://www.jianshu.com/users/f37a8f0ba6f8/latest_articles
