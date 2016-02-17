@@ -3,6 +3,9 @@ IOS 视屏直播样例
 
 主要展示 HLS 详细流程，用于iOS视屏直播。
 
+## demo简介：
+待续。。。
+
 # HTTP Live Streaming (HLS) 
 
 苹果官方对于视频直播服务提出了 HLS 解决方案，该方案主要适用范围在于：
