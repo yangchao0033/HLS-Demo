@@ -12,7 +12,8 @@
 
 
 #warning 注意，不要直接使用切换流的主索引，当前代码的协议只提供对.ts定位的子索引的下载和播放，而且其中只有点播协议那一小段是可以下载的，直播协议只能播放，无法下载。崩溃bug正在找，会及时在博客中进行更新。博客地址：superyang.gitcafe.io或yangchao0033.github.io
-/** 点播协议 */
+
+/** 点播协议 (只有这个是可以下载的，但是苦于太短，没办法播放出来，正在寻找可以下载并播放的新的点播或直播源)*/
 //#define TEST_HLS_URL @"http://m3u8.tdimg.com/147/806/921/3.m3u8"
 /** 视频直播协议 */
 /** 父索引 */
@@ -75,27 +76,21 @@
 }
 
 - (void)openHttpServer
-
 {
-    
     self.httpServer = [[HTTPServer alloc] init];
     [self.httpServer setType:@"_http._tcp."];  // 设置服务类型
     [self.httpServer setPort:12345]; // 设置服务器端口
     
     // 获取本地Library/Cache路径下downloads路径
     NSString *webPath = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
-    
     NSLog(@"-------------\nSetting document root: %@\n", webPath);
-    
     // 设置服务器路径
     [self.httpServer setDocumentRoot:webPath];
     NSError *error;
-    
     if(![self.httpServer start:&error])
     {
         NSLog(@"-------------\nError starting HTTP Server: %@\n", error);
     }
-    
 }
 
 
