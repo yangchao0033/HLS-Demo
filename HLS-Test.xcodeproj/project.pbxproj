@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1717412C1C89787F00948AEE /* testhhh.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1717412B1C89787F00948AEE /* testhhh.plist */; };
 		1735AA971C58B7FD005AE509 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1735AA961C58B7FD005AE509 /* main.m */; };
 		1735AA9A1C58B7FE005AE509 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1735AA991C58B7FE005AE509 /* AppDelegate.m */; };
 		1735AA9D1C58B7FE005AE509 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1735AA9C1C58B7FE005AE509 /* ViewController.m */; };
@@ -116,6 +117,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1717412B1C89787F00948AEE /* testhhh.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testhhh.plist; sourceTree = "<group>"; };
 		1735AA921C58B7FD005AE509 /* HLS-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HLS-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1735AA961C58B7FD005AE509 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1735AA981C58B7FE005AE509 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				1735AAA11C58B7FE005AE509 /* Assets.xcassets */,
 				1735AAA31C58B7FE005AE509 /* LaunchScreen.storyboard */,
 				1735AAA61C58B7FE005AE509 /* Info.plist */,
+				1717412B1C89787F00948AEE /* testhhh.plist */,
 				1735AA951C58B7FD005AE509 /* Supporting Files */,
 			);
 			path = "HLS-Test";
@@ -832,6 +835,7 @@
 				1735AB9D1C58BA5D005AE509 /* About.txt in Resources */,
 				1735ABA51C58BA5D005AE509 /* README.txt in Resources */,
 				1735AB651C58BA5D005AE509 /* fetch_ios_ghunit.rb in Resources */,
+				1717412C1C89787F00948AEE /* testhhh.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1146,6 +1150,7 @@
 				1735AAC11C58B7FE005AE509 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1735AAC21C58B7FE005AE509 /* Build configuration list for PBXNativeTarget "HLS-TestTests" */ = {
 			isa = XCConfigurationList;
@@ -1154,6 +1159,7 @@
 				1735AAC41C58B7FE005AE509 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1735AAC51C58B7FE005AE509 /* Build configuration list for PBXNativeTarget "HLS-TestUITests" */ = {
 			isa = XCConfigurationList;
@@ -1162,6 +1168,7 @@
 				1735AAC71C58B7FE005AE509 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
