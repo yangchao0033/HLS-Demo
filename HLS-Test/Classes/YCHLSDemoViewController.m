@@ -12,22 +12,17 @@
 
 
 #warning 注意，不要直接使用切换流的主索引，当前代码的协议只提供对.ts定位的子索引的下载和播放，而且其中只有点播协议那一小段是可以下载的，直播协议只能播放，无法下载。崩溃bug正在找，会及时在博客中进行更新。博客地址：superyang.gitcafe.io或yangchao0033.github.io
-
-
-//#define TEST_HLS_URL @"http://7sbrpe.com2.z0.glb.qiniucdn.com/atest10.m3u8"
-//#define TEST_HLS_URL @"http://7sbrpe.com2.z0.glb.qiniucdn.com/atest5.m3u8"
-//#define TEST_HLS_URL @"http://7sbrpe.com2.z0.glb.qiniucdn.com/atest20.m3u8"
-//#define TEST_HLS_URL @"http://7xaw4d.com2.z0.glb.qiniucdn.com/mobileM_566a06713de8b69a6a75c9f9.mp4"
-
-/** 点播协议 (只有这个是可以下载的，但是苦于太短，没办法播放出来，正在寻找可以下载并播放的新的点播或直播源,希望有读者可以帮忙提供哈，不甚感激~)*/
-//#define TEST_HLS_URL @"http://m3u8.tdimg.com/147/806/921/3.m3u8"
 /** 视频直播协议 */
 /** 父索引 */
 //#define TEST_HLS_URL @"http://dlhls.cdn.zhanqi.tv/zqlive/34338_PVMT5.m3u8"
 /** 子索引 */
 //#define TEST_HLS_URL @"http://dlhls.cdn.zhanqi.tv/zqlive/34338_PVMT5_1024/index.m3u8?Dnion_vsnae=34338_PVMT5"
 /** wwcd视频，果然苹果自己就用这个协议 */
-#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/hls_vod_mvp.m3u8"
+//#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/hls_vod_mvp.m3u8"
+
+/** 点播协议 */
+// 新添加可下载播放链接，该demo目前只支持该链接，由于各家的m3u8格式不一致，所以没有做兼容处理，demo失败可以找我私聊哈
+#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/0640.m3u8"
 
 
 @interface YCHLSDemoViewController () <M3U8HandlerDelegate, VideoDownloadDelegate>
@@ -69,7 +64,7 @@
         M3U8Handler *handler = [[M3U8Handler alloc] init];
         [handler praseUrl:[NSString stringWithFormat:TEST_HLS_URL]];
         /** @"XNjUxMTE4NDAw"就是一个唯一标示符，没有其他含义，下面遇到同理 */
-        handler.playlist.uuid = @"XNjUxMTE4NDAw";
+        handler.playlist.uuid = @"0640";
         if (self.downloader != nil) {
             [self.downloader removeObserver:self forKeyPath:@"clearCaches" context:nil];
             [self.downloader removeObserver:self forKeyPath:@"currentProgress"];
@@ -88,7 +83,12 @@
     [self.httpServer setPort:12345]; // 设置服务器端口
     
     // 获取本地Library/Cache路径下downloads路径
+//    NSString *webPath = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
+    
     NSString *webPath = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
+    
+    webPath = WebBasePath;
+    
     NSLog(@"-------------\nSetting document root: %@\n", webPath);
     // 设置服务器路径
     [self.httpServer setDocumentRoot:webPath];
@@ -110,6 +110,7 @@
 - (IBAction)playLiveStreaming {
     
     NSURL *url = [[NSURL alloc] initWithString:TEST_HLS_URL];
+//    NSURL *url = [[NSURL alloc] initWithString:@"http://7xaw4c.com2.z0.glb.qiniucdn.com/pcM_5669d4ca4ca048700704dbb0.mp4"];
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     [self presentMoviePlayerViewControllerAnimated:player];
 }
@@ -122,7 +123,7 @@
     NSString *localDownloadsPath = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
     
     // 获取视频本地路径
-    NSString *filePath = [localDownloadsPath stringByAppendingPathComponent:@"XNjUxMTE4NDAw/movie.m3u8"];
+    NSString *filePath = [localDownloadsPath stringByAppendingPathComponent:@"0640/0640.m3u8"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     // 判断视频是否缓存完成，如果完成则播放本地缓存
     if ([fileManager fileExistsAtPath:filePath]) {
@@ -141,7 +142,7 @@
 #pragma mark - 视频解析完成
 -(void)praseM3U8Finished:(M3U8Handler*)handler
 {
-    handler.playlist.uuid = @"XNjUxMTE4NDAw";
+    handler.playlist.uuid = @"0640";
     if (self.downloader != nil) {
         [self.downloader removeObserver:self forKeyPath:@"clearCaches" context:nil];
         [self.downloader removeObserver:self forKeyPath:@"currentProgress"];
@@ -188,6 +189,7 @@
 {
     NSLog(@"视频解析失败-failed -- %@",handler);
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"视频解析失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+    
     [alertView show];
 }
 
@@ -223,13 +225,14 @@
 #pragma mark - 播放本地视频
 - (IBAction)playVideoFromLocal:(id)sender {
     
-    NSString * playurl = [NSString stringWithFormat:@"http://127.0.0.1:12345/XNjUxMTE4NDAw/movie.m3u8"];
+    NSString * playurl = [NSString stringWithFormat:@"http://127.0.0.1:12345/0640/0640.m3u8"];
     NSLog(@"本地视频地址-----%@", playurl);
     
     // 获取本地Library/Cache路径
     NSString *localDownloadsPath = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
     // 获取视频本地路径
-    NSString *filePath = [localDownloadsPath stringByAppendingPathComponent:@"XNjUxMTE4NDAw/movie.m3u8"];
+//    NSString *filePath = [localDownloadsPath stringByAppendingPathComponent:@"0640/0640.m3u8"];
+    NSString *filePath = [WebBasePath stringByAppendingPathComponent:@"0640/0640.m3u8"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     // 判断视频是否缓存完成，如果完成则播放本地缓存

@@ -65,13 +65,27 @@
         
         remainData = [remainData substringFromIndex:commaRange.location];
         // 读取片段url
-        NSRange linkRangeBegin = [remainData rangeOfString:@"http"];
+//        NSRange linkRangeBegin = [remainData rangeOfString:@"http"];
+        NSRange linkRangeBegin = [remainData rangeOfString:@"0640"];
         NSRange linkRangeEnd = [remainData rangeOfString:@"#"];
-        NSString* linkurl = [remainData substringWithRange:NSMakeRange(linkRangeBegin.location, linkRangeEnd.location - linkRangeBegin.location)];
+//        linkRangeEnd = NSMakeRange(linkRangeEnd.location - 1, linkRangeEnd.length);
+        NSString* linkurl = nil;
+        
+        if (linkRangeEnd.location==NSNotFound) {
+            linkurl = [remainData substringFromIndex:linkRangeBegin.location];
+        } else {
+//            linkurl = [remainData substringWithRange:NSMakeRange(linkRangeBegin.location, linkRangeEnd.location - linkRangeBegin.location)];
+            NSString *path = [remainData substringWithRange:NSMakeRange(linkRangeBegin.location, linkRangeEnd.location - linkRangeBegin.location)];
+            linkurl = [NSString stringWithFormat:@"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/%@", path];
+//            linkurl = path;
+        }
         segment.locationUrl = linkurl;
-
+        segment.locationUrl = [self removeSpaceAndNewline:linkurl];
+        
         [segments addObject:segment];
-        remainData = [remainData substringFromIndex:linkRangeEnd.location];
+        if (linkRangeEnd.location!=NSNotFound) {
+            remainData = [remainData substringFromIndex:linkRangeEnd.location];
+        }
         segmentRange = [remainData rangeOfString:@"#EXTINF:"];
     }
     
@@ -105,6 +119,12 @@
  http://f.youku.com/player/getMpegtsPath/st/flv/fileid/03000201004F4BC6AFD0C202E26EEEB41666A0-C93C-D6C9-9FFA-33424A776707/ipad0_4.ts?KM=14eb49fe4969126c6&start=70&end=98&ts=24&html5=1&seg_no=4&seg_time=0
  #EXT-X-ENDLIST
  */
-
+- (NSString *)removeSpaceAndNewline:(NSString *)str
+{
+    NSString *temp = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    return temp;
+}
 
 @end

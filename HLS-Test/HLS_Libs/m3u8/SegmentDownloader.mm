@@ -14,11 +14,13 @@
 
 -(void)start
 {
+    
 //    NSLog(@"download segment start, fileName = %@,url = %@",self.fileName,self.downloadUrl);
     request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self.downloadUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     [request setTemporaryFileDownloadPath: self.tmpFileName];
     NSString *pathPrefix = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
-    NSString *saveTo = [[pathPrefix stringByAppendingPathComponent:kPathDownload] stringByAppendingPathComponent:self.filePath];    
+    NSString *saveTo = [[pathPrefix stringByAppendingPathComponent:kPathDownload] stringByAppendingPathComponent:self.filePath];
+//    NSString *saveTo = [[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:kPathDownload] stringByAppendingPathComponent:self.filePath];
     [request setDownloadDestinationPath:[saveTo stringByAppendingPathComponent:self.fileName]];
     [request setDelegate:self];
     [request setDownloadProgressDelegate:self];

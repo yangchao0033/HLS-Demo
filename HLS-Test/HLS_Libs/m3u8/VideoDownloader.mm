@@ -39,7 +39,7 @@
         }
         for(int i = 0;i< self.playlist.length;i++)
         {
-            NSString* filename = [NSString stringWithFormat:@"id%d",i];
+            NSString* filename = [NSString stringWithFormat:@"id%d.ts",i];
             M3U8SegmentInfo* segment = [self.playlist getSegment:i];
             SegmentDownloader* sgDownloader = [[SegmentDownloader alloc]initWithUrl:segment.locationUrl andFilePath:self.playlist.uuid andFileName:filename];
             sgDownloader.delegate = self;
@@ -197,9 +197,11 @@
 {
     if(playlist !=nil)
     {
-        NSString *downloadDic = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
+//        NSString *downloadDic = [kLibraryCache stringByAppendingPathComponent:kPathDownload];
+        NSString *downloadDic = WebBasePath;
+        
         NSString *saveTo = [downloadDic stringByAppendingPathComponent:playlist.uuid];
-        NSString *fullpath = [saveTo stringByAppendingPathComponent:@"movie.m3u8"];
+        NSString *fullpath = [saveTo stringByAppendingPathComponent:@"0640.m3u8"];
         NSLog(@"createLocalM3U8file:%@",fullpath);
         
         
@@ -229,7 +231,7 @@
         //填充片段数据
         for(int i = 0;i< self.playlist.length;i++)
         {
-            NSString* filename = [NSString stringWithFormat:@"id%d",i];
+            NSString* filename = [NSString stringWithFormat:@"id%d.ts",i];
             M3U8SegmentInfo* segInfo = [self.playlist getSegment:i];
             NSString* length = [NSString stringWithFormat:@"#EXTINF:%ld,\n",(long)segInfo.duration];
             NSString* url = [segmentPrefix stringByAppendingString:filename];
