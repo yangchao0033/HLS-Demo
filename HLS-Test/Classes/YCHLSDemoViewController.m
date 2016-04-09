@@ -87,6 +87,8 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.downloader stopDownloadVideo];
+    self.downloadButton.enabled = YES;
+    [self.downloadButton setTitle:@"下载" forState:UIControlStateNormal];
 }
 - (void)openHttpServer
 {
