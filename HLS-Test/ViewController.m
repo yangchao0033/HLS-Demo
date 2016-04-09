@@ -39,6 +39,7 @@
         alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
         UITextField *textFiled = [alertView textFieldAtIndex:0];
         textFiled.text = @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/0640.m3u8";
+        textFiled.text = @"http://pl.youku.com/playlist/m3u8?ts=1460191031&keyframe=0&pid=6b5f94f4ab33c702&vid=XMjMzODM2MzU2&type=flv&r=/3sLngL0Q6CXymAIiF9JUQQtnOFNJPUClO8A56KJJcT8UB+NRAMQ09zE6rNj4EKMxAvRByWf6hitgv75Fv0ffY93XIyfsDxfTMrXhf93HpxU/l3ZcBOSsxUf7QaPO6gDptAU4mTDRr+dVJThYEJUnp5SDxM2fe5A70JG4d4z6AkQBQVlgFj+eIQgEoBHz2Fh&ypremium=1&oip=1992409311&token=9685&sid=4460191031966202a202d&did=1460190991&ev=1&ctype=20&ep=WolyplIdeJ0IjpH0p6nyXMzuiRFepTej4GnJddjesh%2BJCNyYqhFVGVTF4J2XXzwZ";
         textFiled.clearButtonMode = UITextFieldViewModeAlways;
         [alertView show];
         
