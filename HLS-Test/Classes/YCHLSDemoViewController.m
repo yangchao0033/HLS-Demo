@@ -218,7 +218,7 @@
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
-    self.downloadButton.enabled = YES;
+//    self.downloadButton.enabled = YES;
     
     [request createLocalM3U8file];
     
