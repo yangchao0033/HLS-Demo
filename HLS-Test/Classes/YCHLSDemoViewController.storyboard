@@ -36,7 +36,7 @@
                                     <constraint firstAttribute="height" constant="100" id="YkI-R4-Iix"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="播放">
+                                <state key="normal" title="播放在线视频">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <variation key="default">
