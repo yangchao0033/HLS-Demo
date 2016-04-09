@@ -86,7 +86,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.downloader cancelDownloadVideo];
+    [self.downloader stopDownloadVideo];
 }
 - (void)openHttpServer
 {
