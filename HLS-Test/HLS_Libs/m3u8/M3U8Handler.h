@@ -12,7 +12,7 @@
 @protocol M3U8HandlerDelegate <NSObject>
 @optional
 -(void)praseM3U8Finished:(M3U8Handler*)handler;
--(void)praseM3U8Failed:(M3U8Handler*)handler;
+-(void)praseM3U8Failed:(M3U8Handler*)handler error:(NSError *)error;
 @end
 
 

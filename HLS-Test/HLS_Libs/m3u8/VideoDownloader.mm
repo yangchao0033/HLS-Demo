@@ -62,6 +62,7 @@
     
     // 直接删除缓存的文件夹，不用一个一个文件删除
     NSString *savePath = [[kLibraryCache stringByAppendingPathComponent:kPathDownload] stringByAppendingPathComponent:self.playlist.uuid];
+    savePath = [WebBasePath stringByAppendingPathComponent:self.playlist.uuid];
     NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
     
     if ([fileManager fileExistsAtPath:savePath]) {

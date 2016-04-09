@@ -10,7 +10,7 @@
 #import "YCHLSDemoViewController.h"
 #define myKey @"mykey"
 
-@interface ViewController ()
+@interface ViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -34,10 +34,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        UIStoryboard *board = [UIStoryboard storyboardWithName:NSStringFromClass([YCHLSDemoViewController class]) bundle:nil];
-        YCHLSDemoViewController *vc = [board instantiateViewControllerWithIdentifier:@"HLSPlay"];
-        [self.navigationController pushViewController:vc animated:YES];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入HLS直播url" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alertView.tag = 900;
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        UITextField *textFiled = [alertView textFieldAtIndex:0];
+        textFiled.text = @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/0640.m3u8";
+        textFiled.clearButtonMode = UITextFieldViewModeAlways;
+        [alertView show];
+        
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 900) {
+        if (buttonIndex == 1) {
+            UIStoryboard *board = [UIStoryboard storyboardWithName:NSStringFromClass([YCHLSDemoViewController class]) bundle:nil];
+            YCHLSDemoViewController *vc = [board instantiateViewControllerWithIdentifier:@"HLSPlay"];
+            vc.URLString = [alertView textFieldAtIndex:0].text;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+}
+
 @end

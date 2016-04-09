@@ -12,6 +12,7 @@
 
 
 #warning 注意，不要直接使用切换流的主索引，当前代码的协议只提供对.ts定位的子索引的下载和播放，而且其中只有点播协议那一小段是可以下载的，直播协议只能播放，无法下载。崩溃bug正在找，会及时在博客中进行更新。博客地址：superyang.gitcafe.io或yangchao0033.github.io
+//#define TEST_HLS_URL @"http://m3u8.tdimg.com/147/806/921/3.m3u8"
 /** 视频直播协议 */
 /** 父索引 */
 //#define TEST_HLS_URL @"http://dlhls.cdn.zhanqi.tv/zqlive/34338_PVMT5.m3u8"
@@ -21,8 +22,8 @@
 //#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/hls_vod_mvp.m3u8"
 
 /** 点播协议 */
-// 新添加可下载播放链接，该demo目前只支持该链接，由于各家的m3u8格式不一致，所以没有做兼容处理，demo失败可以找我私聊哈
 #define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/0640.m3u8"
+//#define TEST_HLS_URL @"http://pl.youku.com/playlist/m3u8?ts=1460190028&keyframe=0&pid=6b5f94f4ab33c702&vid=XNzgxMTQyMzIw&type=hd2&r=/3sLngL0Q6CXymAIiF9JUQQtnOFNJPUClO8A56KJJcT8UB+NRAMQ09zE6rNj4EKMxAvRByWf6hitgv75Fv0ffeukHu0/cHPmEJbqRoQB5wVU/l3ZcBOSsxUf7QaPO6gDptAU4mTDRr+dVJThYEJUnhDylfynOikSdSxEqBFdeDY7+0iOLRI4iPtRlKx5jngj&ypremium=1&oip=1992409311&token=5701&sid=74601900286162054962a&did=1460189987&ev=1&ctype=20&ep=0nFhXc%2B6QqgNpi46UejQ2JQw5hPsb0UdjjMSGiBdsIV9nwiIZRIiNvonOZh89iYe"
 
 
 @interface YCHLSDemoViewController () <M3U8HandlerDelegate, VideoDownloadDelegate>
@@ -52,6 +53,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    if ([self.URLString isEqualToString:@""] || !self.URLString) {
+        self.URLString = TEST_HLS_URL;
+    }
+    
     /** 打开本地服务器 */
     [self openHttpServer];
     
@@ -62,7 +68,7 @@
         self.progressView.progress = 1;
         /** 配置MSU8解析器 */
         M3U8Handler *handler = [[M3U8Handler alloc] init];
-        [handler praseUrl:[NSString stringWithFormat:TEST_HLS_URL]];
+        [handler praseUrl:[NSString stringWithFormat:@"%@", self.URLString]];
         /** @"XNjUxMTE4NDAw"就是一个唯一标示符，没有其他含义，下面遇到同理 */
         handler.playlist.uuid = @"0640";
         if (self.downloader != nil) {
@@ -73,6 +79,7 @@
             /** 初始化下载对象 */
             self.downloader = [[VideoDownloader alloc] initWithM3U8List:handler.playlist];
             [self.downloader addObserver:self forKeyPath:@"clearCaches" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil]; // 判断是否清理缓存
+            [self.downloader addObserver:self forKeyPath:@"currentProgress" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
 }
 
@@ -109,8 +116,7 @@
 #pragma mark - 在线流媒体播放
 - (IBAction)playLiveStreaming {
     
-    NSURL *url = [[NSURL alloc] initWithString:TEST_HLS_URL];
-//    NSURL *url = [[NSURL alloc] initWithString:@"http://7xaw4c.com2.z0.glb.qiniucdn.com/pcM_5669d4ca4ca048700704dbb0.mp4"];
+    NSURL *url = [[NSURL alloc] initWithString:self.URLString];
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     [self presentMoviePlayerViewControllerAnimated:player];
 }
@@ -133,7 +139,7 @@
         M3U8Handler *handler = [[M3U8Handler alloc] init];
         handler.delegate = self;
         // 解析m3u8视频地址
-        [handler praseUrl:TEST_HLS_URL];
+        [handler praseUrl:self.URLString];
         // 开启网络指示器
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
@@ -185,10 +191,10 @@
 }
 
 #pragma mark - 视频解析失败
--(void)praseM3U8Failed:(M3U8Handler*)handler
+-(void)praseM3U8Failed:(M3U8Handler*)handler error:(NSError *)error
 {
     NSLog(@"视频解析失败-failed -- %@",handler);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"视频解析失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"视频解析失败" message:error.domain delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
     
     [alertView show];
 }

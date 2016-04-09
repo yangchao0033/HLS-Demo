@@ -8,9 +8,10 @@
 
 #import "M3U8Handler.h"
 #import "M3U8Playlist.h"
+
+static NSString * const kHttpScheme = @"http";
 @implementation M3U8Handler
 @synthesize delegate,playlist;
-
 
 -(void)dealloc
 {
@@ -34,6 +35,7 @@
 //    }
     
     NSURL *url = [[NSURL alloc] initWithString:urlstr];
+    NSURL *baseUrl = [url URLByDeletingLastPathComponent];
     NSError *error = nil;
     NSStringEncoding encoding;
     /** 获取到返回的响应字符串，其中包含该视频流的信息 */
@@ -44,13 +46,20 @@
     if(data == nil)
     {
 //        NSLog(@"data is nil");
-        if(self.delegate != nil && [self.delegate respondsToSelector:@selector(praseM3U8Failed:)])
+        if(self.delegate != nil && [self.delegate respondsToSelector:@selector(praseM3U8Failed:error:)])
         {
-            [self.delegate praseM3U8Failed:self];
+            [self.delegate praseM3U8Failed:self error:[NSError errorWithDomain:@"服务器返回数据为空" code:0 userInfo:nil]];
         }
         return;
     }
     
+    if (![data containsString:@"#EXTINF:"]) {
+        if(self.delegate != nil && [self.delegate respondsToSelector:@selector(praseM3U8Failed:error:)])
+        {
+            [self.delegate praseM3U8Failed:self error:[NSError errorWithDomain:@"服务器返回数据错误" code:0 userInfo:nil]];
+        }
+        return;
+    }
     NSMutableArray *segments = [[NSMutableArray alloc] init];
     NSString* remainData =data;
     NSRange segmentRange = [remainData rangeOfString:@"#EXTINF:"];
@@ -65,8 +74,10 @@
         
         remainData = [remainData substringFromIndex:commaRange.location];
         // 读取片段url
-//        NSRange linkRangeBegin = [remainData rangeOfString:@"http"];
-        NSRange linkRangeBegin = [remainData rangeOfString:@"0640"];
+        NSRange linkRangeBegin = [remainData rangeOfString:kHttpScheme];
+        if (linkRangeBegin.location == NSNotFound) {
+            linkRangeBegin = NSMakeRange(0, 0);
+        }
         NSRange linkRangeEnd = [remainData rangeOfString:@"#"];
 //        linkRangeEnd = NSMakeRange(linkRangeEnd.location - 1, linkRangeEnd.length);
         NSString* linkurl = nil;
@@ -74,13 +85,16 @@
         if (linkRangeEnd.location==NSNotFound) {
             linkurl = [remainData substringFromIndex:linkRangeBegin.location];
         } else {
-//            linkurl = [remainData substringWithRange:NSMakeRange(linkRangeBegin.location, linkRangeEnd.location - linkRangeBegin.location)];
-            NSString *path = [remainData substringWithRange:NSMakeRange(linkRangeBegin.location, linkRangeEnd.location - linkRangeBegin.location)];
-            linkurl = [NSString stringWithFormat:@"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/%@", path];
-//            linkurl = path;
+            if (linkRangeBegin.length != kHttpScheme.length) { // 拼接相对路劲
+                NSString *path = [remainData substringWithRange:NSMakeRange(linkRangeBegin.location, linkRangeEnd.location - linkRangeBegin.location)];
+                linkurl = [NSString stringWithFormat:@"%@%@", baseUrl.absoluteString,path];
+                linkurl = [self removeSpaceAndNewlineAndOtherFlag:linkurl];
+            } else { // 绝对路径
+                linkurl = [remainData substringWithRange:NSMakeRange(linkRangeBegin.location, linkRangeEnd.location - linkRangeBegin.location)];
+                linkurl = [self removeSpaceAndNewlineAndOtherFlag:linkurl];
+            }
         }
         segment.locationUrl = linkurl;
-        segment.locationUrl = [self removeSpaceAndNewline:linkurl];
         
         [segments addObject:segment];
         if (linkRangeEnd.location!=NSNotFound) {
@@ -119,11 +133,12 @@
  http://f.youku.com/player/getMpegtsPath/st/flv/fileid/03000201004F4BC6AFD0C202E26EEEB41666A0-C93C-D6C9-9FFA-33424A776707/ipad0_4.ts?KM=14eb49fe4969126c6&start=70&end=98&ts=24&html5=1&seg_no=4&seg_time=0
  #EXT-X-ENDLIST
  */
-- (NSString *)removeSpaceAndNewline:(NSString *)str
+- (NSString *)removeSpaceAndNewlineAndOtherFlag:(NSString *)str
 {
     NSString *temp = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"," withString:@""];
     return temp;
 }
 

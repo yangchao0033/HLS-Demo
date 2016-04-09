@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface YCHLSDemoViewController : UIViewController
-
+@property (nonatomic, copy) NSString *URLString;
 @end
