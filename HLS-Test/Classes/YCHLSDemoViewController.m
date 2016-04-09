@@ -66,6 +66,7 @@
         self.downloadButton.enabled = NO;
         self.clearButton.enabled = YES;
         self.progressView.progress = 1;
+        self.progressLabel.text = @"100%";
         /** 配置MSU8解析器 */
         M3U8Handler *handler = [[M3U8Handler alloc] init];
         [handler praseUrl:[NSString stringWithFormat:@"%@", self.URLString]];
@@ -76,13 +77,17 @@
             [self.downloader removeObserver:self forKeyPath:@"currentProgress"];
             self.downloader = nil;
         }
-            /** 初始化下载对象 */
-            self.downloader = [[VideoDownloader alloc] initWithM3U8List:handler.playlist];
-            [self.downloader addObserver:self forKeyPath:@"clearCaches" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil]; // 判断是否清理缓存
-            [self.downloader addObserver:self forKeyPath:@"currentProgress" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        /** 初始化下载对象 */
+        self.downloader = [[VideoDownloader alloc] initWithM3U8List:handler.playlist];
+        [self.downloader addObserver:self forKeyPath:@"clearCaches" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil]; // 判断是否清理缓存
+        [self.downloader addObserver:self forKeyPath:@"currentProgress" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.downloader cancelDownloadVideo];
+}
 - (void)openHttpServer
 {
     self.httpServer = [[HTTPServer alloc] init];
@@ -123,6 +128,10 @@
 
 #pragma mark - 视频下载
 - (IBAction)downloadStreamingMedia:(id)sender {
+    
+    
+    [self.downloadButton setTitle:@"下载中" forState:UIControlStateNormal];
+    self.downloadButton.enabled = NO;
     
     UIButton *downloadButton = sender;
     // 获取本地Library/Cache路径
@@ -166,16 +175,14 @@
 {
     if ([keyPath isEqualToString:@"clearCaches"]) {
         NSLog(@"%@", change);
-//        if (change[@"new"]) {
-            self.downloadButton.enabled = YES;
-            [self.downloadButton setTitle:@"下载" forState:UIControlStateNormal];
-            self.clearButton.enabled = NO;
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"isDownload"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            self.progressView.progress = 0.0;
-            self.progressLabel.text = [NSString stringWithFormat:@"%.2f%%", 0.0];
-//        }
-        
+        self.downloadButton.enabled = YES;
+        [self.downloadButton setTitle:@"下载" forState:UIControlStateNormal];
+        self.downloadButton.enabled = YES;
+        self.clearButton.enabled = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"isDownload"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.progressView.progress = 0.0;
+        self.progressLabel.text = [NSString stringWithFormat:@"%.2f%%", 0.0];
     }else{
         self.progressLabel.text = [NSString stringWithFormat:@"%.2f%%", 100 * [[change objectForKey:@"new"] floatValue]];
         self.progressView.progress = [[change objectForKey:@"new"] floatValue];
@@ -185,6 +192,9 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
             self.clearButton.enabled = YES;
             self.downloadButton.enabled = NO;
+        } else {
+//            [self.downloadButton setTitle:@"下载中" forState:UIControlStateNormal];
+//            self.downloadButton.enabled = NO;
         }
     }
     
@@ -223,7 +233,8 @@
 -(void)videoDownloaderFailed:(VideoDownloader*)request
 
 {
-    
+    [self.downloadButton setTitle:@"下载" forState:UIControlStateNormal];
+    self.downloadButton.enabled = YES;
     NSLog(@"----------视频下载失败-----------");
     
 }
