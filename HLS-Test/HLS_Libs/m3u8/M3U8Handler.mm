@@ -139,6 +139,7 @@ static NSString * const kHttpScheme = @"http";
     temp = [temp stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"," withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     return temp;
 }
 

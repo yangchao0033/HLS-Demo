@@ -22,9 +22,9 @@
 //#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/hls_vod_mvp.m3u8"
 
 /** 点播协议 */
-#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/0640.m3u8"
-
-
+//#define TEST_HLS_URL @"http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/0640/0640.m3u8"
+/** 新增芈月传点播~ */
+#define TEST_HLS_URL @"http://yangchao0033.github.io/hlsSegement/0640.m3u8"
 
 @interface YCHLSDemoViewController () <M3U8HandlerDelegate, VideoDownloadDelegate>
 
