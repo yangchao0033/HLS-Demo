@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "YCHLSDemoViewController.h"
-#define myKey @"mykey"
 
 @interface ViewController ()<UIAlertViewDelegate>
 
@@ -19,12 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-//    [userDefault setInteger:123 forKey:myKey];
-    [userDefault setBool:YES forKey:myKey];
-    [userDefault synchronize];
-    NSLog(@"%@", [userDefault objectForKey:myKey]);
-    NSLog(@"%@", [[userDefault objectForKey:myKey] class]);
 }
 
 - (void)didReceiveMemoryWarning {
