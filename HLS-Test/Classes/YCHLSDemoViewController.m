@@ -9,6 +9,10 @@
 #import "YCHLSDemoViewController.h"
 #import "YCHLS-Demo.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVKit/AVKit.h>
+#import <AVFoundation/AVFoundation.h>
+#define VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 
 
 #warning 注意，不要直接使用切换流的主索引，当前代码的协议只提供对.ts定位的子索引的下载和播放，而且其中只有点播协议那一小段是可以下载的，直播协议只能播放，无法下载。崩溃bug正在找，会及时在博客中进行更新。博客地址：superyang.gitcafe.io或yangchao0033.github.io
@@ -127,8 +131,16 @@
 - (IBAction)playLiveStreaming {
     
     NSURL *url = [[NSURL alloc] initWithString:self.URLString];
-    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [self presentMoviePlayerViewControllerAnimated:player];
+    if (VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
+        playerVC.player = [[AVPlayer alloc] initWithURL:url];
+        [self presentViewController:playerVC animated:YES completion:^{
+            [playerVC.player play];
+        }];
+    } else {
+        MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        [self presentMoviePlayerViewControllerAnimated:player];
+    }
 }
 
 #pragma mark - 视频下载
@@ -259,8 +271,16 @@
     
     // 判断视频是否缓存完成，如果完成则播放本地缓存
     if ([fileManager fileExistsAtPath:filePath]) {
-        MPMoviePlayerViewController *playerViewController =[[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString: playurl]];
-        [self presentMoviePlayerViewControllerAnimated:playerViewController];
+        if (VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
+            playerVC.player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString: playurl]];
+            [self presentViewController:playerVC animated:YES completion:^{
+                [playerVC.player play];
+            }];
+        } else {
+            MPMoviePlayerViewController *playerViewController =[[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString: playurl]];
+            [self presentMoviePlayerViewControllerAnimated:playerViewController];
+        }
     }
     else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"当前视频未缓存" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
